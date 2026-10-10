@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white)
 ![Apache Spark](https://img.shields.io/badge/Apache_Spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)
 ![Databricks](https://img.shields.io/badge/Databricks-FF3621?style=for-the-badge&logo=databricks&logoColor=white)
-![Tableau](https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=tableau&logoColor=white)
+![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=postgresql&logoColor=white)
 
 Una plataforma analítica de e-commerce moderna construida sobre **Databricks** y **PySpark**, implementando una arquitectura **Medallion Lakehouse (Bronce, Plata, Oro)** y un Data Warehouse dimensional para Business Intelligence.
@@ -27,18 +27,18 @@ flowchart TD
     end
 
     subgraph BI [Business Intelligence]
-        Tableau[Tableau<br/>Executive Dashboard]
+        PowerBI[Power BI<br/>Executive Dashboard]
     end
 
     Olist -- Ingesta a Unity Catalog --> Bronze
     Bronze -- PySpark<br/>Limpieza, Casteo y Deduplicación --> Silver
     Silver -- PySpark<br/>Joins y Modelado Dimensional --> Gold
-    Gold -- Exportación Analítica --> Tableau
+    Gold -- Exportación Analítica --> PowerBI
 
     style Bronze fill:#cd7f32,stroke:#333,stroke-width:1px,color:#fff
     style Silver fill:#c0c0c0,stroke:#333,stroke-width:1px,color:#000
     style Gold fill:#ffd700,stroke:#333,stroke-width:1px,color:#000
-    style Tableau fill:#e97627,stroke:#333,stroke-width:1px,color:#fff
+    style PowerBI fill:#f2c811,stroke:#333,stroke-width:1px,color:#000
     style Databricks fill:#f8f8f8,stroke:#e25a1c,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
@@ -60,17 +60,23 @@ Se implementaron controles automatizados con PySpark antes de exponer la informa
 
 ## 📈 Análisis y Business Intelligence (Frontend Analítico)
 
-> **[En desarrollo]** Esta capa consumirá el modelo dimensional (Capa Oro) para responder preguntas críticas del negocio.
+Para cerrar el ciclo de vida del dato y generar valor de negocio, la capa Oro (Data Warehouse) fue conectada a **Power BI** para el desarrollo de un Dashboard Ejecutivo. 
 
-* **Herramienta:** Tableau
-* **KPIs Core:** Ingresos totales, ticket promedio, volumen de ventas por categoría.
-* **Dashboard Interactivo:** *(El enlace a Tableau Public se añadirá pronto)*
-* **Vista previa:** *(Imagen del dashboard se añadirá pronto)*
+El modelo de datos procesa de forma eficiente más de 112,000 registros históricos y permite a los *stakeholders* responder preguntas estratégicas en segundos:
+
+* **Monitoreo de KPIs:** Seguimiento de Ingresos Totales ($15.84M), Volumen de Órdenes (113K) y Ticket Promedio ($140.64).
+* **Tendencia Histórica:** Análisis de la estacionalidad de las ventas a través de un *drill-down* interactivo por año y mes.
+* **Rendimiento de Productos:** Identificación automática del Top 10 de categorías más rentables (liderado por *Beleza_Saude*).
+* **Matriz Estratégica:** Gráfico de dispersión (Volumen vs. Valor) para detectar qué categorías requieren mayor empuje de marketing (alto valor, bajo volumen) y cuáles son el motor transaccional de la empresa.
+
+> **Vista del Dashboard Ejecutivo:**
+![Dashboard Power BI](dashboard_preview.png)
 
 ---
 
 ## 💻 Tecnologías Utilizadas
 * **Procesamiento Distribuido:** Apache Spark, PySpark
 * **Infraestructura & Almacenamiento:** Databricks, Delta Lake, Unity Catalog
+* **Visualización & BI:** Power BI
 * **Lenguajes:** Python, SQL
 * **Modelado:** Dimensional Modeling (Star Schema)
